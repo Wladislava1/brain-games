@@ -1,30 +1,29 @@
 import runGames from "../index.js";
+import { getRandomNumber } from '../utils.js';
 
-const generateCalcRoundData = () => {
-  const arr = [];
-  const number = Math.floor(Math.random() * 100);
-  const plus =  Math.floor(Math.random() * 10);
-  const index = Math.floor(Math.random() * 9);
-  let resultNumber = 0;
-  let emptyNumber = 0;
-    for(let i = 0; i <= 9; i++){
-        resultNumber = parseInt(number) + parseInt(plus*i);
-        if (i === parseInt(index)){
-            arr.push("..");
-            emptyNumber = resultNumber;
-        } else {
-            arr.push(parseInt(resultNumber));  
-        }             
-    }
-    const question = `${arr.join().replaceAll(","," ")}`;
-    const correctAnswer = String(emptyNumber);
-    return {question, correctAnswer};
+const generateProgression = (start, step) => {
+  const progression = [];
+  for (let i = 0; i < 10; i++) {
+    progression.push(start + step * i);
+  }
+  return progression;
+};
+
+const generateProgressionRoundData = () => {
+  const start = getRandomNumber(0, 99); 
+  const step = getRandomNumber(1, 10); 
+  const index = getRandomNumber(0, 9);
+  const progression = generateProgression(start, step);
+  const correctAnswer = String(progression[index]);
+  progression[index] = '..';
+
+  const question = progression.join(' ');
+  return { question, correctAnswer };
 };
 
 const progression = () => {
   const description = 'What number is missing in the progression?';
-  runGames(description, generateCalcRoundData);
+  runGames(description, generateProgressionRoundData);
 };
-
 
 export default progression;
