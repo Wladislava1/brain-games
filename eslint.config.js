@@ -8,7 +8,7 @@ export default defineConfig({
     'airbnb-base', 
   ],
   parserOptions: {
-    ecmaVersion: 'latest', 
+    ecmaVersion: 'latest',
     sourceType: 'module',  
   },
   globals: {
